@@ -5,6 +5,17 @@
 @section('content')
     <div class="container">
         <h2>Buat Buku Baru</h2>
+
+        @if ($errors->any())
+            <div class="alert alert-danger mt-4">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('books.store') }}">
             @csrf
             <div class="form-group mb-3">

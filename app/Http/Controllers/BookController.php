@@ -63,7 +63,16 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            'judul' => 'required',
+            'halaman' => 'required|integer|min:0',
+            'kategori' => 'required',
+            'penerbit' => 'required',
+        ]);
+
+        $book->update($request->all());
+
+        return redirect()->route('books.index')->with('success', 'Buku berhasil diperbarui.');
     }
 
     /**
@@ -71,6 +80,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
     }
 }

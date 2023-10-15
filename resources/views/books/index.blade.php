@@ -39,7 +39,12 @@
                             <td>{{ $book->penerbit }}</td>
                             <td>
                                 <a href="{{ route('books.show', $book) }}" class="btn btn-info">Lihat</a>
-                                <a href="{{ route('books.edit', $book->isbn) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ route('books.edit', $book) }}" class="btn btn-primary">Edit</a>
+                                <form action="{{ route('books.destroy', $book) }}" class="d-inline" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
