@@ -9,6 +9,9 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'isbn';
+    public $incrementing = false;
+
     protected $fillable = [
         'isbn', 'judul', 'halaman', 'kategori', 'penerbit'
     ];

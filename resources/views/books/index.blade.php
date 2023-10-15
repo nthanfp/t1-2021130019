@@ -5,6 +5,18 @@
 @section('content')
     <div class="container">
         <h2>Daftar Buku</h2>
+
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <div class="my-2">
+            <a href="{{ route('books.create') }}"><button class="btn btn-primary">Tambah Buku</button></a>
+        </div>
+
         <div class="table-responsive">
             <table class="table table-bordered text-nowrap">
                 <thead>
@@ -23,19 +35,18 @@
                             <td>{{ $book->isbn }}</td>
                             <td>{{ $book->judul }}</td>
                             <td>{{ $book->halaman }}</td>
-                            <td>{{ $book->kategori }}</td>
+                            <td>{{ ucwords($book->kategori) }}</td>
                             <td>{{ $book->penerbit }}</td>
                             <td>
-                                <a href="{{ route('books.show', $book->isbn) }}" class="btn btn-info">Lihat</a>
+                                <a href="{{ route('books.show', $book) }}" class="btn btn-info">Lihat</a>
                                 <a href="{{ route('books.edit', $book->isbn) }}" class="btn btn-primary">Edit</a>
-                                <!-- Tambahkan tombol hapus jika diperlukan -->
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <div class="d-flex justify-content-center">
-                {!! $articles->links() !!}
+                {!! $books->links() !!}
             </div>
         </div>
     </div>

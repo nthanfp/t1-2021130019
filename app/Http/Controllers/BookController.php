@@ -12,7 +12,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::paginate(10);
         return view('books.index', compact('books'));
     }
 
@@ -21,7 +21,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
@@ -29,7 +29,17 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'isbn' => 'required|unique:books|digits:13',
+            'judul' => 'required',
+            'halaman' => 'required|integer|min:0',
+            'kategori' => 'required',
+            'penerbit' => 'required',
+        ]);
+
+        Book::create($request->all());
+
+        return redirect()->route('books.index')->with('success', 'Buku berhasil disimpan.');
     }
 
     /**
@@ -37,7 +47,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('books.show', compact('book'));
     }
 
     /**
@@ -45,7 +55,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('books.edit', compact('book'));
     }
 
     /**
